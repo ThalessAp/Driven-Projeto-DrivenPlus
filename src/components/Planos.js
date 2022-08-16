@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import styled from "styled-components";
 import { GetSubcriptions } from "../assets/services/axios";
+import Context from "../assets/services/Context";
+import styled from "styled-components";
 
-export default function Planos( {token}) {
+export default function Planos({ token }) {
+	const { user } = useContext(Context);
+	console.log(user);
 	const [plano, setPlano] = useState([]);
 	const navigate = useNavigate();
 
 	const Token = {
-		config: {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
+		headers: {
+			Authorization: `Bearer ${token}`,
 		},
 	};
 	useEffect(() => {
@@ -33,6 +34,7 @@ export default function Planos( {token}) {
 				</Title>
 				<StyledPlanos className="planos">
 					{plano.map((plano, index) => {
+						
 						return (
 							<>
 								<div
@@ -99,6 +101,10 @@ const StyledPlano = styled.div`
 	background: #0e0e13;
 	border: 3px solid #7e7e7e;
 	border-radius: 12px;
+
+	:hover {
+		cursor: pointer;
+	}
 `;
 const Img = styled.div`
 	width: 100%;

@@ -8,7 +8,7 @@ import Logo from "../assets/img/DrivenLogo.svg";
 
 export default function Login() {
 	const navigate = useNavigate();
-	const {user, setUser }= useContext(Context);
+	const { user, setUser } = useContext(Context);
 
 	function SendForm(event) {
 		event.preventDefault();
@@ -16,8 +16,7 @@ export default function Login() {
 		SingIn(user)
 			.then((response) => {
 				console.log(response);
-				//setUser({...response.data});
-
+				setUser(response.data);
 				response.data.membership
 					? navigate("/home", { replace: true })
 					: navigate("/subscriptions", { replace: true });
@@ -27,7 +26,7 @@ export default function Login() {
 			});
 	}
 	useEffect(() => {
-		if (!localStorage.getItem("token")) {
+		if (localStorage.getItem("token")) {
 			navigate("/home", { replace: true });
 		}
 	});

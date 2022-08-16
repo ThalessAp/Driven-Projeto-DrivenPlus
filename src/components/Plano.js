@@ -7,8 +7,8 @@ import Money from "../assets/img/Money.svg";
 import Close from "../assets/img/CloseIcon.svg";
 import styled from "styled-components";
 
-export default function Plano(token) {
-	const [plano, setPlano] = useState([]);
+export default function Plano({ token }) {
+	const [plano, setPlano] = useState({});
 	const [form, setForm] = useState({
 		cardName: "",
 		cardNumber: "",
@@ -18,21 +18,21 @@ export default function Plano(token) {
 
 	const id = useParams();
 	const Token = {
-		config: {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
+		headers: {
+			Authorization: `Bearer ${token}`,
 		},
 	};
 	useEffect(() => {
 		GetSubcription(id, Token)
 			.then((response) => {
 				setPlano(response.data);
+				console.log(plano);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-	});
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[]);
 
 	function handleForm(e) {
 		setForm({
@@ -110,7 +110,7 @@ export default function Plano(token) {
 							<>
 								<a href="{perk.link}" className="perk">
 									<h3>
-										` ${perk.id}. ${perk.title}`
+										{perk.id}. {perk.title}
 									</h3>
 								</a>
 							</>
@@ -132,21 +132,21 @@ export default function Plano(token) {
 				<Form onSubmit={Overlay}>
 					<input
 						type="text"
-						placeholder="Nome impresso no cartão"
+						placeholder="  Nome impresso no cartão"
 						name="cardName"
 						onChange={handleForm}
 						value={form.cardName}
 					/>
 					<input
 						type="text"
-						placeholder="Digitos do cartão"
+						placeholder="  Digitos do cartão"
 						name="cardNumber"
 						onChange={handleForm}
 						value={form.cardNumber}
 					/>
 					<input
 						type="text"
-						placeholder="Codigo de segurança"
+						placeholder="  Codigo de segurança"
 						name="securityNumber"
 						onChange={handleForm}
 						value={form.securityNumber}
@@ -154,7 +154,7 @@ export default function Plano(token) {
 					<input
 						type="text"
 						placeholder="Validade"
-						name="expirationDate"
+						name="  expirationDate"
 						onChange={handleForm}
 						value={form.expirationDate}
 					/>
@@ -176,6 +176,7 @@ const StyledIcon = styled.div`
 `;
 const Logo = styled.div`
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	img {
@@ -190,6 +191,7 @@ const Logo = styled.div`
 	}
 `;
 const Perks = styled.div`
+	padding-left: 20px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -197,6 +199,10 @@ const Perks = styled.div`
 	font-weight: 400;
 	color: #ffffff;
 
+	a {
+		text-decoration: none;
+		color: #ffffff;
+	}
 	h2 {
 		font-size: 16px;
 	}
@@ -205,6 +211,7 @@ const Perks = styled.div`
 	}
 `;
 const Price = styled.div`
+	padding-left: 20px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -221,17 +228,28 @@ const Price = styled.div`
 `;
 const Form = styled.form`
 	display: flex;
+
+	align-items: center;
+	justify-content: center;
 	flex-wrap: wrap;
-
-	font-size: 14px;
-	border-radius: 8px;
-
+	padding: 25px;
+	gap: 15px;
 	input {
+		width: 100%;
+		height: 45px;
+		font-size: 14px;
+		border-radius: 8px;
+
 		font-weight: 400;
 		color: #7e7e7e;
 		background: #ffffff;
 	}
 	button {
+		width: 100%;
+		height: 45px;
+		font-size: 14px;
+		border-radius: 8px;
+
 		font-weight: 700;
 		color: #ffffff;
 		background: #ff4791;

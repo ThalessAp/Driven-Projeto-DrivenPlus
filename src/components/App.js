@@ -12,17 +12,27 @@ import User from "./User";
 
 export default function App() {
 	const [user, setUser] = useState();
+
 	return (
 		<>
 			<GlobalStyles />
-			<Context.Provider value={{user, setUser}}>
+			<Context.Provider value={{ user, setUser }}>
 				<BrowserRouter>
 					<Routes>
 						<Route path={"/"} element={<Login />} />
 						<Route path={"/sing-up"} element={<Cadastro />} />
-						<Route path={"/subscriptions"} element={<Planos />} />
-						<Route path={"/subscriptions/:id"} element={<Plano />} />
-						<Route path={"/home "} element={<Home />} />
+						<Route
+							path={"/subscriptions"}
+							element={<Planos token={user?.token || ""} />}
+						/>
+						<Route
+							path={"/subscriptions/:id"}
+							element={<Plano token={user?.token || ""} />}
+						/>
+						<Route
+							path={"/home "}
+							element={<Home token={user?.token || ""} />}
+						/>
 						<Route path={"/users/:UserId"} element={<User />} />
 					</Routes>
 				</BrowserRouter>
