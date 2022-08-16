@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -8,10 +8,7 @@ import Logo from "../assets/img/DrivenLogo.svg";
 
 export default function Login() {
 	const navigate = useNavigate();
-	const [user, setUser] = useState({
-		email: "",
-		password: "",
-	});
+	const {user, setUser }= useContext(Context);
 
 	function SendForm(event) {
 		event.preventDefault();
@@ -19,11 +16,7 @@ export default function Login() {
 		SingIn(user)
 			.then((response) => {
 				console.log(response);
-				Context = {
-					...Context,
-					user: response.data,
-					token: response.data.token,
-				};
+				//setUser({...response.data});
 
 				response.data.membership
 					? navigate("/home", { replace: true })
