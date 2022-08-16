@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { GetSubcriptions } from "../assets/services/axios";
 
-export default function Planos({ token }) {
+export default function Planos( {token}) {
 	const [plano, setPlano] = useState([]);
 	const navigate = useNavigate();
 

@@ -13,7 +13,7 @@ export default function App() {
 	return (
 		<>
 			<GlobalStyles />
-			<Context.Provider>
+			<Context.Provider value={Context}>
 				<BrowserRouter>
 					<Routes>
 						<Route path={"/"} element={<Login />} />

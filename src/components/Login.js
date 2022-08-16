@@ -24,6 +24,7 @@ export default function Login() {
 					user: response.data,
 					token: response.data.token,
 				};
+
 				response.data.membership
 					? navigate("/home", { replace: true })
 					: navigate("/subscriptions", { replace: true });
